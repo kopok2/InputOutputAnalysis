@@ -19,10 +19,22 @@ def production_estimate(technology, demand):
 
 if __name__ == '__main__':
     print("Linear Algebra for IO Analysis.")
-    tech = np.array([[.1, .01, .01], [.02, .13, .2], [.05, .18, .05]])
-    dem = np.array([2350, 4552, 911])
-    print(production_estimate(tech, dem))
 
-    tech = np.array([[.2, .0, .2], [.375, .0, .125], [.0, .8, .0]])
-    dem = np.array([50, 50, 50])
+    tech = np.array([[10/27, 2/15], [4/27, 2/15]])
+    dem = np.array([15, 9])
+    print(tech, dem)
+    a = (production_estimate(tech, dem))
+    l = np.identity(tech.shape[0])
+    c = tech
+    x = 2
+    while np.mean((a - (l @ dem)) / a) > 0.1 ** 15:
+        l += c
+        c = c @ tech
+        print(l @ dem, np.mean((a - (l @ dem)) / a), x)
+        x += 1
+
+    print(a)
+
+    tech = np.array([[0.05, 0.2, 0.025], [0.05, 0.1, 0.025], [0.6, 0.6, 0.15]])
+    dem = np.array([35 * 3 / 4, 36, 25 * 0.95])
     print(production_estimate(tech, dem))
